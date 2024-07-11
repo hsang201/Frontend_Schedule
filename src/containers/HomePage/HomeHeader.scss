@@ -1,170 +1,215 @@
 .home-header-container {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  padding: 0 20px;
+
+  .home-header-content {
     width: 100%;
-    height: 70px;
+    height: 100%;
     display: flex;
-    padding: 0 20px;
+    padding: 0 40px;
 
-    .home-header-content {
-        width: 100%;
+    .left-content {
+      width: 20%;
+      display: flex;
+      align-items: center;
+
+      .header-logo {
         height: 100%;
-        display: flex;
+        width: 100%;
+        margin-right: 50px;
+        // background-size: cover;
+      }
 
-        .left-content {
-            width: 20%;
-            display: flex;
-            align-items: center;
-
-            .header-logo {
-                background: url("../../assets/1.svg") center center no-repeat;
-                height: 100%;
-                width: 100%;
-                background-size: cover;
-                // background-repeat: no-repeat;
-            }
-            i {
-                font-size: 25px;
-                color: grey;
-                cursor: pointer;
-                margin: 20px 50px;
-            }
-        }
-
-        .center-content {
-            width: 60%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0 20px;
-
-            .child-content {
-                .subs-title {
-                    font-weight: 400;
-                    font-size: 12px;
-                }
-            }
-        }
-
-        .right-content {
-            width: 20%;
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-
-            .support {
-                i {
-                    color: aqua;
-                }
-            }
-        }
+      i {
+        font-size: 25px;
+        color: grey;
+        cursor: pointer;
+        // margin: 20px 50px;
+      }
     }
+
+    .center-content {
+      width: 60%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 20px;
+
+      .child-content {
+        .subs-title {
+          font-weight: 400;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .right-content {
+      width: 20%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .support {
+        padding-right: 40px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        i {
+          margin-right: 5px;
+          font-size: 20px;
+          color: aqua;
+        }
+      }
+
+      .language-vi {
+        cursor: pointer;
+        opacity: 0.1;
+
+        &.active {
+          opacity: 1;
+          span {
+            color: red;
+          }
+        }
+
+        &.hover {
+          opacity: 0.8;
+        }
+      }
+      .language-en {
+        margin: 0 10px;
+        cursor: pointer;
+        opacity: 0.1;
+
+        &.active {
+          opacity: 1;
+          span {
+            color: orange;
+          }
+        }
+
+        &.hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
 }
 
 .home-header-banner {
-    background-image: url("../../assets/banner2.jpg");
-    height: 600px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    // padding: 15px 0;
+  background-image: url("../../assets/banner2.jpg");
+  height: 600px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+
+  .content-up {
+    background-image: linear-gradient(
+      rgba(126, 126, 126, 0.7),
+      rgba(255, 255, 255, 0)
+    );
+    padding-top: 15px;
+    height: 65%;
+
+    .title1 {
+      text-align: center;
+      color: white;
+      font-size: 30px;
+      text-shadow: 1px 1px 1px #333;
+      margin-bottom: 15px;
+      margin-top: 30px;
+    }
+
+    .title2 {
+      text-align: center;
+      color: white;
+      font-size: 30px;
+      text-shadow: 1px 1px 1px #333;
+      font-weight: bolder;
+      margin-bottom: 20px;
+    }
+
+    .search {
+      width: fit-content;
+      display: flex;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      background-color: rgba(246, 245, 241, 0.8);
+      border-radius: 30px;
+
+      i {
+        margin: 0 5px;
+      }
+
+      input {
+        height: 30px;
+        width: 350px;
+        background: transparent;
+        border: none;
+        outline: none;
+      }
+    }
+  }
+
+  .content-down {
+    height: 35%;
     display: flex;
-    flex-direction: column;
-    // opacity: 0.9;
+    justify-content: center;
+    align-items: flex-end;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.01),
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 1)
+    );
+    padding-bottom: 15px;
 
-    .content-up {
-        background-image: linear-gradient(rgba(126, 126, 126, 0.7), rgba(255, 255, 255, 0));
-        padding-top: 15px;
-        height: 65%;
+    .options {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      gap: 40px;
 
-        .title1 {
-            text-align: center;
-            color: white;
-            font-size: 30px;
-            text-shadow: 1px 1px 1px #333;
-            margin-bottom: 15px;
-            margin-top: 30px;
+      // justify-content: space-evenly;
+
+      .option-child {
+        width: 100px;
+
+        .icon-child {
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          border-radius: 50%;
+          height: 50px;
+          width: 50px;
+          padding: 10px;
+          background-color: white;
+          margin: 0 auto;
+
+          i {
+            font-size: 25px;
+            color: #1d9fa7;
+          }
         }
+        .text-child {
+          // padding: 0;
+          font-weight: 500;
+          font-size: 16px;
+          color: #012d2f;
+          cursor: pointer;
+          text-shadow: 1px #333;
+          margin-top: 5px;
 
-        .title2 {
-            text-align: center;
-            color: white;
-            font-size: 30px;
-            text-shadow: 1px 1px 1px #333;
-            font-weight: bolder;
-            margin-bottom: 20px;
+          &:hover {
+            color: aqua;
+          }
         }
-
-        .search {
-            width: fit-content;
-            display: flex;
-            margin: 0 auto;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            background-color: rgba(246, 245, 241, 0.8);
-            border-radius: 30px;
-
-            i {
-                margin: 0 5px;
-            }
-
-            input {
-                height: 30px;
-                width: 350px;
-                background: transparent;
-                border: none;
-                outline: none;
-            }
-        }
+      }
     }
-
-    .content-down {
-        height: 35%;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 1));
-
-        .options {
-            display: flex;
-            text-align: center;
-            justify-content: center;
-            gap: 40px;
-
-            // justify-content: space-evenly;
-
-            .option-child {
-                width: 100px;
-
-                .icon-child {
-                    justify-content: center;
-                    align-items: center;
-                    text-align: center;
-                    border-radius: 50%;
-                    height: 50px;
-                    width: 50px;
-                    padding: 10px;
-                    background-color: white;
-                    margin: 0 auto;
-
-                    i {
-                        font-size: 25px;
-                        color: #1d9fa7;
-                    }
-                }
-                .text-child {
-                    // padding: 0;
-                    font-weight: 500;
-                    font-size: 16px;
-                    color: #012d2f;
-                    cursor: pointer;
-                    text-shadow: 1px #333;
-                    margin-top: 5px;
-
-                    &:hover {
-                        color: aqua;
-                    }
-                }
-            }
-        }
-    }
+  }
 }
