@@ -38,6 +38,11 @@
   &.section-specialty {
     background: #f5f5f5;
   }
+
+  &.section-about {
+    height: 500px !important;
+    margin: 0 100px;
+  }
   .section-body {
     .section-customize {
       .bg-image {
@@ -106,6 +111,7 @@
 }
 
 .section-outstanding-doctor {
+  background: #f5f5f5;
   .title-section {
     margin-top: -20px !important;
   }
@@ -113,6 +119,7 @@
     padding: 10px;
 
     .customize-body {
+      background-color: white;
       border: 1px solid red;
     }
 
@@ -122,6 +129,30 @@
       margin-bottom: 10px;
       justify-content: center;
       align-items: center;
+    }
+  }
+}
+
+.section-about {
+  .section-about-header {
+    padding: 20px 10px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .section-about-content {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    .content-left {
+      width: 60%;
+    }
+    .content-right {
+      width: 40%;
+
+      p {
+        text-align: justify;
+        font-style: italic;
+      }
     }
   }
 }

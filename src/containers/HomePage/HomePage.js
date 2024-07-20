@@ -4,6 +4,9 @@ import HomeHeader from "./HomeHeader";
 import Specialty from "./Section/Specialty";
 import MedicalFacility from "./Section/MedicalFacility";
 import OutStandingDoctor from "./Section/OutStandingDoctor";
+import About from "./Section/About";
+import HomeFooter from "./HomeFooter";
+import HomeBanner from "./HomeBanner";
 import './HomePage.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -20,9 +23,12 @@ class HomePage extends Component {
     return (
       <div>
         <HomeHeader />
+        <HomeBanner />
         <Specialty settings={settings} />
         <MedicalFacility settings={settings} />
         <OutStandingDoctor settings={settings} />
+        <About />
+        <HomeFooter />
         <div style={{ height: '100px' }}></div>
       </div>
     );

@@ -48,30 +48,36 @@ class OutStandingDoctor extends Component {
                                 </div>
                             </div>
                             <div className="section-customize">
-                                <div className="outer-bg">
-                                    <div className="bg-image section-outstanding-doctor" />
-                                </div>
-                                <div className="position text-center ">
-                                    <div>PGS.TS Nguyễn Thị Châu</div>
-                                    <div>Xương khớp 4</div>
-                                </div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="outer-bg">
-                                    <div className="bg-image section-outstanding-doctor" />
-                                </div>
-                                <div className="position text-center ">
-                                    <div>PGS.TS Nguyễn Thị Châu</div>
-                                    <div>Xương khớp 5</div>
+                                <div className="customize-body">
+                                    <div className="outer-bg">
+                                        <div className="bg-image section-outstanding-doctor" />
+                                    </div>
+                                    <div className="position text-center ">
+                                        <div>PGS.TS Nguyễn Thị Châu</div>
+                                        <div>Xương khớp 3</div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="section-customize">
-                                <div className="outer-bg">
-                                    <div className="bg-image section-outstanding-doctor" />
+                                <div className="customize-body">
+                                    <div className="outer-bg">
+                                        <div className="bg-image section-outstanding-doctor" />
+                                    </div>
+                                    <div className="position text-center ">
+                                        <div>PGS.TS Nguyễn Thị Châu</div>
+                                        <div>Xương khớp 3</div>
+                                    </div>
                                 </div>
-                                <div className="position text-center ">
-                                    <div>PGS.TS Nguyễn Thị Châu</div>
-                                    <div>Xương khớp 6</div>
+                            </div>
+                            <div className="section-customize">
+                                <div className="customize-body">
+                                    <div className="outer-bg">
+                                        <div className="bg-image section-outstanding-doctor" />
+                                    </div>
+                                    <div className="position text-center ">
+                                        <div>PGS.TS Nguyễn Thị Châu</div>
+                                        <div>Xương khớp 3</div>
+                                    </div>
                                 </div>
                             </div>
                         </Slider>

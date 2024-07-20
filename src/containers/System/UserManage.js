@@ -7,9 +7,9 @@ import {
   createNewUserService,
   deleteUserService,
   editUserService,
-} from "../../../services/userService";
+} from "../../services/userService";
 import ModalUser from "./ModalUser";
-import { emitter } from "../../../utils/emitter";
+import { emitter } from "../../utils/emitter";
 import ModalEditUser from "./ModalEditUser";
 
 // import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
@@ -124,23 +124,11 @@ class UserManage extends Component {
         <ModalUser
           isOpen={this.state.isOpenModalUser}
           toggleFromParent={this.toggleUserModal}
-          createNewuser={this.createNewuser}
-        />
-        {this.state.isOpenModalEditUser && (
-          <ModalEditUser
-            isOpen={this.state.isOpenModalEditUser}
-            toggleFromParent={this.toggleUserEditModal}
-            currentUser={this.state.userEdit}
-            editUser={this.doEditUser}
-          />
-        )}
-
+          createNewuser={this.createNewuser} />
+        {this.state.isOpenModalEditUser && (<ModalEditUser isOpen={this.state.isOpenModalEditUser} toggleFromParent={this.toggleUserEditModal} currentUser={this.state.userEdit} editUser={this.doEditUser} />)}
         <div className="title text-center">Manage users with react</div>
         <div className="mx-1 px-3">
-          <button
-            className="btn btn-primary px-2"
-            onClick={() => this.handleAddNewUser()}
-          >
+          <button className="btn btn-primary px-2" onClick={() => this.handleAddNewUser()}>
             <i className="fas fa-plus px-1"></i> Add new users
           </button>
         </div>
@@ -163,16 +151,10 @@ class UserManage extends Component {
                       <td>{item.lastName}</td>
                       <td>{item.address}</td>
                       <td>
-                        <button
-                          className="btn-edit"
-                          onClick={() => this.handleEditUser(item)}
-                        >
+                        <button className="btn-edit" onClick={() => this.handleEditUser(item)}>
                           <i className="fas fa-pencil-alt"></i>
                         </button>
-                        <button
-                          className="btn-del"
-                          onClick={() => this.handleDeleteUser(item)}
-                        >
+                        <button className="btn-del" onClick={() => this.handleDeleteUser(item)}>
                           <i className="fas fa-trash"></i>
                         </button>
                       </td>
