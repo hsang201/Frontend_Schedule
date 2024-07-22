@@ -43,6 +43,9 @@ class Login extends Component {
         });
       }
       if (data && data.errCode === 0) {
+        // console.log('check data user', data);
+
+        // localStorage.setItem('jwtToken', data.jwtToken);
         this.props.userLoginSuccess(data.user);
         console.log("login succeeds");
       }
