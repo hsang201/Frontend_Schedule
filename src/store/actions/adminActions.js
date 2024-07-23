@@ -1,6 +1,10 @@
 import actionTypes from './actionTypes';
-import { getAllCodeService, createNewUserService, getAllUsers, deleteUserService, editUserService } from '../../services/userService';
+import {
+    getAllCodeService, createNewUserService, getAllUsers,
+    deleteUserService, editUserService, getTopDoctorHomeService
+} from '../../services/userService';
 import { toast } from 'react-toastify';
+import { dateFilter } from 'react-bootstrap-table2-filter';
 
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
@@ -181,3 +185,28 @@ export const editUserSuccess = () => ({
 export const editUserFailed = () => ({
     type: actionTypes.EDIT_USER_FAILDED
 })
+
+// 
+//             console.log(res1);
+export const fetchTopDoctor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getTopDoctorHomeService('');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
+                    dataDoctor: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_TOP_DOCTOR_FAILDED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_TOP_DOCTOR_FAILDED: ', e);
+            dispatch({
+                type: actionTypes.FETCH_TOP_DOCTOR_FAILDED
+            })
+        }
+    }
+}

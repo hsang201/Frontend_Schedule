@@ -6,7 +6,7 @@ import { getAllCodeService } from '../../../services/userService';
 import * as actions from "../../../store/actions"
 import './UserRedux.scss';
 import TableManageUser from './TableManageUser';
-import { CRUD_Actions } from "../../../utils";
+import { CRUD_Actions, CommonUtils } from "../../../utils";
 
 
 class UserRedux extends Component {
@@ -30,7 +30,7 @@ class UserRedux extends Component {
             gender: '',
             position: '',
             role: '',
-            avata: '',
+            avatar: '',
 
             action: '',
             userEditId: '',
@@ -47,21 +47,21 @@ class UserRedux extends Component {
             let arrGenders = this.props.genderRedux;
             this.setState({
                 genderArr: arrGenders,
-                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : ''
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : ''
             })
         }
         if (prevProps.positionRedux !== this.props.positionRedux) {
             let arrPositions = this.props.positionRedux;
             this.setState({
                 positionArr: arrPositions,
-                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : ''
+                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : ''
             })
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             let arrRoles = this.props.roleRedux;
             this.setState({
                 roleArr: arrRoles,
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : ''
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : ''
             })
         }
         //check khi co thay doi nguoi dung se load lai 
@@ -77,27 +77,27 @@ class UserRedux extends Component {
                 lastName: '',
                 phoneNumber: '',
                 address: '',
-                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : '',
-                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
-                avata: '',
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '',
+                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
+                avatar: '',
                 action: CRUD_Actions.CREATE,
-                userEditId: '',
+                previewImgURL: '',
             })
         }
     }
 
-    handleOnChangeImgae = (event) => {
+    handleOnChangeImgae = async (event) => {
         let data = event.target.files;
         let file = data[0];
         if (file) {
+            let base64 = await CommonUtils.getBase64(file);
             let objectUrl = URL.createObjectURL(file);
             this.setState({
                 previewImgURL: objectUrl,
-                avata: file
+                avatar: base64
             })
         }
-        console.log('check file', file);
     }
 
     openPreviewImage = () => {
@@ -116,6 +116,11 @@ class UserRedux extends Component {
     }
 
     handleEditUserFromParent = (user) => {
+        let imageBase64 = '';
+        if (user.image) {
+            imageBase64 = new Buffer(user.image, 'base64').toString('binary');
+        }
+        // 
         console.log('check handle edit user from parent: ', user);
         this.setState({
             email: user.email,
@@ -127,7 +132,8 @@ class UserRedux extends Component {
             gender: user.gender,
             position: user.positionId,
             role: user.roleId,
-            avata: '',
+            avatar: '',
+            previewImgURL: imageBase64,
             action: CRUD_Actions.EDIT,
             userEditId: user.id,
         })
@@ -165,7 +171,7 @@ class UserRedux extends Component {
                 gender: this.state.gender,
                 roleId: this.state.role,
                 positionId: this.state.position,
-
+                avatar: this.state.avatar,
             })
         }
         if (action === CRUD_Actions.EDIT) {
@@ -181,6 +187,7 @@ class UserRedux extends Component {
                 gender: this.state.gender,
                 roleId: this.state.role,
                 positionId: this.state.position,
+                avatar: this.state.avatar,
             })
         }
     }
@@ -193,7 +200,7 @@ class UserRedux extends Component {
 
         let { email, password, firstName, lastName,
             phoneNumber, address, gender, position,
-            role, avata } = this.state;
+            role, avatar } = this.state;
 
         return (
             <div className="user-redux-container" >
@@ -259,7 +266,7 @@ class UserRedux extends Component {
                                 >
                                     {genders && genders.length > 0 &&
                                         genders.map((item, index) => {
-                                            return (<option key={index} value={item.key}>{item.valueVi}</option>)
+                                            return (<option key={index} value={item.keyMap}>{item.valueVi}</option>)
                                         })
                                     }
 
@@ -273,7 +280,7 @@ class UserRedux extends Component {
                                 >
                                     {positions && positions.length > 0 &&
                                         positions.map((item, index) => {
-                                            return (<option key={index} value={item.key}>{item.valueVi}</option>)
+                                            return (<option key={index} value={item.keyMap}>{item.valueVi}</option>)
                                         })
                                     }
                                 </select>
@@ -286,7 +293,7 @@ class UserRedux extends Component {
                                 >
                                     {roles && roles.length > 0 &&
                                         roles.map((item, index) => {
-                                            return (<option key={index} value={item.key}>{item.valueVi}</option>)
+                                            return (<option key={index} value={item.keyMap}>{item.valueVi}</option>)
                                         })
                                     }
                                 </select>

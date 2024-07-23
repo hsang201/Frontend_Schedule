@@ -1,85 +1,72 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slider from "react-slick";
+import * as actions from '../../../store/actions';
+import { LANGUAGES } from "../../../utils/constant";
+import { FormattedMessage } from "react-intl";
 
 class OutStandingDoctor extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            arrDoctor: []
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.topDoctorsRedux !== this.props.topDoctorsRedux) {
+            this.setState({
+                arrDoctor: this.props.topDoctorsRedux
+            })
+        }
+    }
+
+    componentDidMount() {
+        this.props.loadTopDoctor();
+    }
     render() {
+        // console.log("check doctoe", this.props.topDoctorsRedux);
+        let { language } = this.props;
+        let arrDoctor = this.state.arrDoctor;
+        // arrDoctor = arrDoctor.concat(arrDoctor).concat(arrDoctor)
         return (
             <div className="section-share section-outstanding-doctor">
                 <div className="section-container">
                     <div className="section-header">
-                        <span className="title-section">Bác sĩ nổi bật tuần qua</span>
-                        <button className="btn-section">Xem thêm</button>
+                        <span className="title-section">
+                            <FormattedMessage id="homepage.outstanding-doctor" />
+                        </span>
+                        <button className="btn-section">
+                            <FormattedMessage id="homepage.more-info" />
+                        </button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
-                            <div className="section-customize">
-                                <div className="customize-body">
-                                    <div className="outer-bg">
-                                        <div className="bg-image section-outstanding-doctor" />
-                                    </div>
-                                    <div className="position text-center ">
-                                        <div>PGS.TS Nguyễn Thị Châu</div>
-                                        <div>Xương khớp 1</div>
-                                    </div>
-                                </div>
+                            {arrDoctor && arrDoctor.length > 0
+                                && arrDoctor.map((item, index) => {
+                                    let imageBase64 = '';
+                                    if (item.image) {
+                                        imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+                                    }
+                                    let nameVi = `${item.positionData.valueVi}, ${item.firstName} ${item.lastName}`;
+                                    let nameEn = `${item.positionData.valueEn}, ${item.lastName} ${item.firstName}`;
 
-                            </div>
-                            <div className="section-customize">
-                                <div className="customize-body">
-                                    <div className="outer-bg">
-                                        <div className="bg-image section-outstanding-doctor" />
-                                    </div>
-                                    <div className="position text-center ">
-                                        <div>PGS.TS Nguyễn Thị Châu</div>
-                                        <div>Xương khớp 2</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="customize-body">
-                                    <div className="outer-bg">
-                                        <div className="bg-image section-outstanding-doctor" />
-                                    </div>
-                                    <div className="position text-center ">
-                                        <div>PGS.TS Nguyễn Thị Châu</div>
-                                        <div>Xương khớp 3</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="customize-body">
-                                    <div className="outer-bg">
-                                        <div className="bg-image section-outstanding-doctor" />
-                                    </div>
-                                    <div className="position text-center ">
-                                        <div>PGS.TS Nguyễn Thị Châu</div>
-                                        <div>Xương khớp 3</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="customize-body">
-                                    <div className="outer-bg">
-                                        <div className="bg-image section-outstanding-doctor" />
-                                    </div>
-                                    <div className="position text-center ">
-                                        <div>PGS.TS Nguyễn Thị Châu</div>
-                                        <div>Xương khớp 3</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="customize-body">
-                                    <div className="outer-bg">
-                                        <div className="bg-image section-outstanding-doctor" />
-                                    </div>
-                                    <div className="position text-center ">
-                                        <div>PGS.TS Nguyễn Thị Châu</div>
-                                        <div>Xương khớp 3</div>
-                                    </div>
-                                </div>
-                            </div>
+                                    return (
+                                        <div className="section-customize" key={index}>
+                                            <div className="customize-body">
+                                                <div className="outer-bg">
+                                                    <div className="bg-image section-outstanding-doctor"
+                                                        style={{ backgroundImage: `url(${imageBase64})` }} />
+                                                </div>
+                                                <div className="position text-center ">
+                                                    <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
+                                                    <div>Xương khớp 1</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </Slider>
                     </div>
                 </div>
@@ -90,12 +77,16 @@ class OutStandingDoctor extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        language: state.app.language,
         isLoggedIn: state.user.isLoggedIn,
+        topDoctorsRedux: state.admin.topDoctor
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        loadTopDoctor: () => dispatch(actions.fetchTopDoctor()),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);

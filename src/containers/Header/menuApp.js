@@ -14,6 +14,9 @@ export const adminMenu = [
             },
             {
                 name: 'menu.admin.manage-crud', link: '/system/user-redux'
+            },
+            {
+                name: 'menu.admin.manage-doctor', link: '/system/manage-doctor'
             }
         ]
     },

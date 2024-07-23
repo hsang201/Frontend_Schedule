@@ -32,5 +32,9 @@
             "manage-specialty":"Quản lý chuyên khoa"
 
         }
+    },
+    "homepage" :{
+        "outstanding-doctor": "Last week's featured doctor",
+        "more-info":"More Infor"
     }
 }
