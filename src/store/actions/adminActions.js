@@ -1,7 +1,8 @@
 import actionTypes from './actionTypes';
 import {
     getAllCodeService, createNewUserService, getAllUsers,
-    deleteUserService, editUserService, getTopDoctorHomeService
+    deleteUserService, editUserService, getTopDoctorHomeService,
+    getAllDoctors, saveDetailDoctorService
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { dateFilter } from 'react-bootstrap-table2-filter';
@@ -186,8 +187,7 @@ export const editUserFailed = () => ({
     type: actionTypes.EDIT_USER_FAILDED
 })
 
-// 
-//             console.log(res1);
+// top doctor
 export const fetchTopDoctor = () => {
     return async (dispatch, getState) => {
         try {
@@ -210,3 +210,56 @@ export const fetchTopDoctor = () => {
         }
     }
 }
+
+// all doctor
+export const fetchAllDoctors = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllDoctors();
+            if (res && res.errCode === 0) {
+
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
+                    dataDr: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTORS_FAILDED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_ALL_DOCTORS_FAILDED: ', e);
+            dispatch({
+                type: actionTypes.FETCH_ALL_DOCTORS_FAILDED
+            })
+        }
+    }
+}
+
+//doctor detail
+export const saveDetailInforDoctor = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveDetailDoctorService(data);
+            if (res && res.errCode === 0) {
+                toast.success("Lưu thông tin chi tiết bác sĩ thành công!");
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS,
+                    dataDr: res.data
+                })
+            } else {
+                toast.error("Lưu thông tin chi tiết bác sĩ thất bại!");
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_DOCTOR_FAILDED
+                })
+            }
+        } catch (e) {
+            toast.error("Lưu thông tin chi tiết bác sĩ thất bại!");
+            console.log('SAVE_DETAIL_DOCTOR_FAILDED: ', e);
+            dispatch({
+                type: actionTypes.SAVE_DETAIL_DOCTOR_FAILDED
+            })
+        }
+    }
+}
+
