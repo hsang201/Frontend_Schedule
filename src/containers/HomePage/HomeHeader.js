@@ -6,12 +6,22 @@ import "./HomeHeader.scss";
 import logo from "../../assets/logo.svg";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../utils/constant";
+import { withRouter } from 'react-router';
 
 import { changelanguageApp } from "../../store/actions/appActions";
 class HomeHeader extends Component {
   changelanguage = (language) => {
     //fire redux event : actions
     this.props.changelanguageAppRedux(language);
+  };
+
+  // returnToHome = () => {
+  //   if (this.props.history) {
+  //     this.props.history.push('/home')
+  //   }
+  // }
+  returnToHome = () => {
+    window.location.href = '/home'; // Navigate to the home page
   };
 
   render() {
@@ -23,7 +33,7 @@ class HomeHeader extends Component {
           <div className="home-header-content">
             <div className="left-content">
               <i className="fas fa-bars"></i>
-              <img className="header-logo" src={logo}></img>
+              <img className="header-logo" src={logo} alt="" onClick={() => this.returnToHome()}></img>
             </div>
             <div className="center-content">
               <div className="child-content">
@@ -96,4 +106,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));

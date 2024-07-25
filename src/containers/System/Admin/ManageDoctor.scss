@@ -20,6 +20,26 @@
     padding: 5px;
     background: orange;
     cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .create-content-doctor {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    padding: 5px;
+    background: rgb(33, 50, 235);
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
 
   .more-infor {

@@ -121,18 +121,22 @@
   }
   .section-customize {
     padding: 10px;
+    cursor: pointer;
 
     .customize-body {
       background-color: white;
-      border: 1px solid red;
-    }
+      border: 1px solid #fff;
 
-    .outer-bg {
-      margin: 10px 0;
-      display: flex;
-      margin-bottom: 10px;
-      justify-content: center;
-      align-items: center;
+      .outer-bg {
+        margin-top: 15px;
+        display: flex;
+        margin-bottom: 10px;
+        justify-content: center;
+        align-items: center;
+      }
+      .position {
+        margin-bottom: 10px;
+      }
     }
   }
 }

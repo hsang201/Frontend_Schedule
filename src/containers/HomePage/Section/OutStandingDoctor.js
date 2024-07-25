@@ -4,6 +4,8 @@ import Slider from "react-slick";
 import * as actions from '../../../store/actions';
 import { LANGUAGES } from "../../../utils/constant";
 import { FormattedMessage } from "react-intl";
+import { withRouter } from 'react-router';
+
 
 class OutStandingDoctor extends Component {
     constructor(props) {
@@ -24,6 +26,15 @@ class OutStandingDoctor extends Component {
     componentDidMount() {
         this.props.loadTopDoctor();
     }
+
+    handleViewDetailDoctor = (doctor) => {
+        console.log('check view infor: ', doctor);
+        if (this.props.history) {
+            this.props.history.push(`/detail-doctor/${doctor.id}`)
+        }
+
+    }
+
     render() {
         // console.log("check doctoe", this.props.topDoctorsRedux);
         let { language } = this.props;
@@ -52,13 +63,13 @@ class OutStandingDoctor extends Component {
                                     let nameEn = `${item.positionData.valueEn}, ${item.lastName} ${item.firstName}`;
 
                                     return (
-                                        <div className="section-customize" key={index}>
+                                        <div className="section-customize" key={index} onClick={() => this.handleViewDetailDoctor(item)}>
                                             <div className="customize-body">
                                                 <div className="outer-bg">
                                                     <div className="bg-image section-outstanding-doctor"
                                                         style={{ backgroundImage: `url(${imageBase64})` }} />
                                                 </div>
-                                                <div className="position text-center ">
+                                                <div className="position text-center">
                                                     <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
                                                     <div>Xương khớp 1</div>
                                                 </div>
@@ -74,7 +85,6 @@ class OutStandingDoctor extends Component {
         );
     }
 }
-
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
@@ -89,4 +99,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor));
