@@ -16,6 +16,7 @@ class Login extends Component {
       username: "",
       password: "",
       isShowPassword: false,
+
     };
   }
 
@@ -37,16 +38,23 @@ class Login extends Component {
     });
     try {
       let data = await handleLoginApi(this.state.username, this.state.password);
+      console.log(data);
       if (data && data.errCode !== 0) {
         this.setState({
           errMessage: data.message,
+
         });
       }
       if (data && data.errCode === 0) {
+
+        // this.setState({
+        //   userInfo: data.user
+        // })
         // console.log('check data user', data);
 
         // localStorage.setItem('jwtToken', data.jwtToken);
         this.props.userLoginSuccess(data.user);
+
         console.log("login succeeds");
       }
     } catch (error) {
@@ -97,7 +105,7 @@ class Login extends Component {
               {this.state.errMessage}
             </div>
             <div className="col-12 ">
-              <button className="btn-login" onClick={() => { this.handleLogin(); }}>Login</button>
+              <button className="btn-login" onClick={() => { this.handleLogin() }}>Login</button>
             </div>
             <div className="col-12">
               <span className="forgot-pw">Forgot your password?</span>
@@ -125,8 +133,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    userLoginSuccess: (userInfo) =>
-      dispatch(actions.userLoginSuccess(userInfo)),
+    userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
     userLoginFail: () => dispatch(actions.userLoginFail()),
   };
 };

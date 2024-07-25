@@ -31,6 +31,9 @@
             "manage-clinic": "Quản lý phòng khám",
             "specialty":"Chuyên khoa",
             "manage-specialty":"Quản lý chuyên khoa"
+        },
+        "doctor" :{
+            "manage-schedule": "Quản lý kế hoạch khám bệnh"
         }
     },
     "homepage" :{

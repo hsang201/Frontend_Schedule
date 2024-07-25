@@ -19,8 +19,7 @@
         "child4":"Mental health",
         "child5":"Dental checkup"
     },
-    "menu": {
-       
+    "menu": {    
         "admin": {
             "manage-user": "Quản lý người dùng",
             "manage-doctor": "Quản lý bác sĩ",
@@ -30,7 +29,9 @@
             "manage-clinic": "Quản lý phòng khám",
             "specialty":"Chuyên khoa",
             "manage-specialty":"Quản lý chuyên khoa"
-
+        },
+        "doctor" :{
+            "manage-schedule": "Quản lý kế hoạch khám bệnh"
         }
     },
     "homepage" :{
