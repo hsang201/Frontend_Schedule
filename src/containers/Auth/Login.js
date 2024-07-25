@@ -46,13 +46,6 @@ class Login extends Component {
         });
       }
       if (data && data.errCode === 0) {
-
-        // this.setState({
-        //   userInfo: data.user
-        // })
-        // console.log('check data user', data);
-
-        // localStorage.setItem('jwtToken', data.jwtToken);
         this.props.userLoginSuccess(data.user);
 
         console.log("login succeeds");
@@ -72,6 +65,12 @@ class Login extends Component {
       isShowPassword: !this.state.isShowPassword,
     });
   };
+
+  handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      this.handleLogin()
+    }
+  }
 
   render() {
     return (
@@ -95,7 +94,9 @@ class Login extends Component {
                   type={this.state.isShowPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={this.state.password}
-                  onChange={(event) => { this.handleOnChangePassword(event); }} />
+                  onChange={(event) => { this.handleOnChangePassword(event); }}
+                  onKeyDown={(event) => this.handleKeyDown(event)}
+                />
                 <span onClick={() => { this.handleShowHidePassword(); }}>
                   <i className={this.state.isShowPassword ? "far fa-eye" : "far fa-eye-slash"}></i>
                 </span>
