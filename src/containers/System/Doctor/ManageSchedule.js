@@ -9,6 +9,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { toast } from 'react-toastify';
 import { dateFormat } from '../../../utils';
+import { saveBulkScheduleDoctor } from '../../../services/userService';
 
 
 class ManageSchedule extends Component {
@@ -83,18 +84,20 @@ class ManageSchedule extends Component {
         }
     }
 
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = [];
         if (!currentDate) {
-            toast.error("Invalid date!");
+            toast.error("Ngày không hợp lệ!");
             return;
         }
         if (selectedDoctor && _.isEmpty(selectedDoctor)) {
-            toast.error("Invalid selected doctor!");
+            toast.error("Bác sĩ đã chọn không hợp lệ!");
             return;
         }
-        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        let formatedDate = new Date(currentDate).getTime();
+
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true);
             if (selectedTime && selectedTime.length > 0) {
@@ -102,19 +105,30 @@ class ManageSchedule extends Component {
                     let object = {};
                     object.doctorId = selectedDoctor.value;
                     object.date = formatedDate;
-                    object.time = schedule.keyMap;
+                    object.timeType = schedule.keyMap;
                     result.push(object);
                 })
             } else {
-                toast.error("Invalid selected time!");
+                toast.error("Thời gian đã chọn không hợp lệ!");
                 return;
             }
         }
-        console.log('check result', result);
+        let res = await saveBulkScheduleDoctor({
+            arrSchedule: result,
+            doctorId: selectedDoctor.value,
+            formatedDate: formatedDate
+        })
+        if (res && res.errCode === 0) {
+            toast.success("Lưu thành công!");
+        } else {
+            toast.error("Lưu thất bại!");
+            console.log('error saveBulkScheduleDoctor >>> res', res);
+        }
     }
 
     render() {
         let { rangeTime } = this.state;
+        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
         // console.log('check', rangeTime);
         return (
             <React.Fragment>
@@ -137,8 +151,8 @@ class ManageSchedule extends Component {
                                 <DatePicker
                                     onChange={this.handleOnChangDatePicker}
                                     className="form-control"
-                                    value={this.state.currentDate[0]}
-                                    minDate={new Date()}
+                                    value={this.state.currentDate}
+                                    minDate={yesterday}
                                 />
                             </div>
                             <div className='col-12 pick-hour-container'>
