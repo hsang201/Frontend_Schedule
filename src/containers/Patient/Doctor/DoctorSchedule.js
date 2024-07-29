@@ -93,7 +93,7 @@ class DoctorSchedule extends Component {
                 </div>
                 <div className='all-avaiable-time'>
                     <div className='text-calendar'>
-                        <i class="fas fa-calendar-alt"><span>Lịch khám</span></i>
+                        <i className="fas fa-calendar-alt"><span>Lịch khám</span></i>
                     </div>
                     <div className='time-content'>
 
@@ -109,7 +109,7 @@ class DoctorSchedule extends Component {
                                     }
                                 </div>
                                 <div className='book-free'>
-                                    <span>Chọn <i class="fas fa-hand-point-up"></i> và đặt (miễn phí)</span>
+                                    <span>Chọn <i className="fas fa-hand-point-up"></i> và đặt (miễn phí)</span>
                                 </div>
                             </>
 

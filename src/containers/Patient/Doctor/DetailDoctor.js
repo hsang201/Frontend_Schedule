@@ -5,6 +5,7 @@ import './DetailDoctor.scss';
 import { getDetailInforDoctor } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
 import DoctorSchedule from './DoctorSchedule';
+import DoctorInfor from './DoctorInfor';
 
 
 class DoctorDetail extends Component {
@@ -24,7 +25,6 @@ class DoctorDetail extends Component {
                 currentDoctorId: id
             })
             let res = await getDetailInforDoctor(id);
-            console.log(res);
             if (res !== "" && res.infor.errCode === 0) {
                 this.setState({
                     detailDoctor: res.infor.data,
@@ -77,11 +77,12 @@ class DoctorDetail extends Component {
                             <DoctorSchedule
                                 //doctorIdFromParent={detailDoctor && detailDoctor.id ? detailDoctor.id : -1}
                                 doctorIdFromParent={this.state.currentDoctorId}
-
                             />
                         </div>
                         <div className='content-right'>
-
+                            <DoctorInfor
+                                doctorIdFromParent={this.state.currentDoctorId}
+                            />
                         </div>
                     </div>
                     <div className='detail-infor-doctor'>

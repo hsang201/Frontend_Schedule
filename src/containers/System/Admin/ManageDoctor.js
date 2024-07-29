@@ -92,7 +92,6 @@ class ManageSchedule extends Component {
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
-
             console.log(dataSelectPayment, dataSelectPrice, dataSelectProvince);
             this.setState({
                 listPrice: dataSelectPrice,
@@ -128,27 +127,71 @@ class ManageSchedule extends Component {
         console.log(this.state.selectedDoctor);
     }
 
+
+
     handleChangeSelect = async (selectedDoctor) => {
         this.setState({ selectedDoctor });
-
         let res = await getDetailInforDoctor(selectedDoctor.value);
         if (res && res.infor.errCode === 0 && res.infor.data && res.infor.data.Markdown) {
             let markdown = res.infor.data.Markdown;
+
+            let { listPayment, listPrice, listProvince } = this.state;
+            let addressClinic = '', nameClinic = '', note = '', priceId = '',
+                paymentId = '', provinceId = '', selectedPayment = '', selectedPrice = '',
+                selectedProvince = '';
+
+            if (res.infor.data.Doctorinfo) {
+                addressClinic = res.infor.data.Doctorinfo.addressClinic;
+                nameClinic = res.infor.data.Doctorinfo.nameClinic;
+                note = res.infor.data.Doctorinfo.note;
+                paymentId = res.infor.data.Doctorinfo.paymentId;
+                priceId = res.infor.data.Doctorinfo.priceId;
+                provinceId = res.infor.data.Doctorinfo.provinceId;
+
+                selectedPayment = listPayment.find(item => item.value === paymentId);
+                selectedPrice = listPrice.find(item => item.value === priceId);
+                selectedProvince = listProvince.find(item => item.value === provinceId);
+            }
             this.setState({
                 contentHTML: markdown.contentHTML,
                 contentMarkdown: markdown.contentMarkdown,
                 description: markdown.description,
-                hasOldData: true
+                hasOldData: true,
+                addressClinic: addressClinic,
+                nameClinic: nameClinic,
+                note: note,
+                selectedPayment: selectedPayment,
+                selectedPrice: selectedPrice,
+                selectedProvince: selectedProvince
+
             })
         } else {
             this.setState({
                 contentHTML: '',
                 contentMarkdown: '',
                 description: '',
-                hasOldData: false
+                hasOldData: false,
+                addressClinic: '',
+                nameClinic: '',
+                note: '',
+                selectedPayment: '',
+                selectedPrice: '',
+                selectedProvince: ''
             })
         }
     }
+
+    // handlePaymentChange = (selectedPayment) => {
+    //     this.setState({ selectedPayment });
+    // }
+
+    // handlePriceChange = (selectedPrice) => {
+    //     this.setState({ selectedPrice });
+    // }
+
+    // handleProvinceChange = (selectedProvince) => {
+    //     this.setState({ selectedProvince });
+    // }
 
     handleOnChangeSelectDoctorInfor = async (selectedDoctor, name) => {
         let stateName = name.name;
@@ -166,7 +209,6 @@ class ManageSchedule extends Component {
         this.setState({
             ...stateCopy
         })
-        console.log(stateCopy);
     }
 
     render() {
@@ -211,7 +253,7 @@ class ManageSchedule extends Component {
                     <div className='col-4 form-group'>
                         <label>Chọn phương thức thanh toán</label>
                         <Select
-                            Value={this.state.selectedPayment}
+                            defaultValue={this.state.selectedPayment}
                             onChange={this.handleOnChangeSelectDoctorInfor}
                             options={this.state.listPayment}
                             placeholder={'Chọn phương thức thanh toán'}
