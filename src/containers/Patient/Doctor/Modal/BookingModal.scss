@@ -1,0 +1,51 @@
+.booking-modal-container {
+  .booking-modal-content {
+    flex-direction: column;
+    display: flex;
+    height: 500px;
+    .booking-modal-header {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      //   display: flex;
+
+      .left {
+        font-size: 17px;
+        font-weight: 600;
+        color: #333;
+      }
+      .right {
+        float: right;
+        cursor: pointer;
+      }
+    }
+    .booking-modal-body {
+      padding: 10px;
+      height: 100%;
+
+      .doctor-infor {
+      }
+    }
+    .booking-modal-footer {
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+
+      button {
+        padding: 5px 8px;
+        border: none;
+        outline: none;
+        border-radius: 3px;
+      }
+
+      .btn-booking {
+        background-color: orange;
+      }
+
+      .btn-cancel {
+        background-color: grey;
+      }
+    }
+  }
+}

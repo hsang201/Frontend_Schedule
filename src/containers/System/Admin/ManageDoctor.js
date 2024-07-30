@@ -151,6 +151,9 @@ class ManageSchedule extends Component {
                 selectedPayment = listPayment.find(item => item.value === paymentId);
                 selectedPrice = listPrice.find(item => item.value === priceId);
                 selectedProvince = listProvince.find(item => item.value === provinceId);
+
+                console.log(selectedPayment, selectedPrice, selectedProvince);
+
             }
             this.setState({
                 contentHTML: markdown.contentHTML,
@@ -160,10 +163,9 @@ class ManageSchedule extends Component {
                 addressClinic: addressClinic,
                 nameClinic: nameClinic,
                 note: note,
-                selectedPayment: selectedPayment,
-                selectedPrice: selectedPrice,
-                selectedProvince: selectedProvince
-
+                selectedPayment: selectedPayment.label,
+                selectedPrice: selectedPrice.label,
+                selectedProvince: selectedProvince.label
             })
         } else {
             this.setState({
@@ -181,18 +183,6 @@ class ManageSchedule extends Component {
         }
     }
 
-    // handlePaymentChange = (selectedPayment) => {
-    //     this.setState({ selectedPayment });
-    // }
-
-    // handlePriceChange = (selectedPrice) => {
-    //     this.setState({ selectedPrice });
-    // }
-
-    // handleProvinceChange = (selectedProvince) => {
-    //     this.setState({ selectedProvince });
-    // }
-
     handleOnChangeSelectDoctorInfor = async (selectedDoctor, name) => {
         let stateName = name.name;
         let stateCopy = { ...this.state };
@@ -200,7 +190,6 @@ class ManageSchedule extends Component {
         this.setState({
             ...stateCopy
         })
-
     }
 
     handleOnChangeText = (event, id) => {
@@ -213,6 +202,7 @@ class ManageSchedule extends Component {
 
     render() {
         let { hasOldData } = this.state;
+        console.log(this.state);
         return (
             <div className='manage-doctor-container'>
                 <div className='manage-doctor-title'>

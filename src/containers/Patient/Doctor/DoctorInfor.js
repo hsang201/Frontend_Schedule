@@ -36,8 +36,6 @@ class DoctorInfor extends Component {
 
     render() {
         let { extraInfor } = this.state;
-        console.log('check ', this.state);
-
         return (
             <div className='doctor-infor-container'>
                 <div className='content-up'>
@@ -50,7 +48,6 @@ class DoctorInfor extends Component {
                     </div>
                 </div>
                 <div className='content-down'>
-
                 </div>
             </div>
         );

@@ -5,6 +5,8 @@ import localization from 'moment/locale/vi';
 import moment from 'moment';
 // import { LANGUAGES } from '../../../utils';
 import { getScheduleDoctor } from '../../../services/userService';
+import BookingModal from './Modal/BookingModal';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 
 class DoctorSchedule extends Component {
@@ -13,6 +15,8 @@ class DoctorSchedule extends Component {
         this.state = {
             allDays: [],
             allAvaiableTime: [],
+            isModalBooking: false,
+            dataModalSchedule: {}
         }
     }
 
@@ -67,7 +71,6 @@ class DoctorSchedule extends Component {
             let doctorId = this.props.doctorIdFromParent;
             let date = event.target.value;
             let res = await getScheduleDoctor(doctorId, date);
-
             if (res && res.errCode === 0) {
                 this.setState({
                     allAvaiableTime: res.data ? res.data : []
@@ -77,49 +80,67 @@ class DoctorSchedule extends Component {
         }
     }
 
+    handleClickScheduleTime = async (item) => {
+        this.setState({
+            isModalBooking: true,
+            dataModalSchedule: item
+        })
+    }
+    closeModalBooking = () => {
+        this.setState({
+            isModalBooking: false
+        })
+    }
+
     render() {
-        let { allDays, allAvaiableTime } = this.state;
+        let { allDays, allAvaiableTime, isModalBooking, dataModalSchedule } = this.state;
         return (
-            <div className='doctor-schedule-container'>
-                <div className='all-schedule'>
-                    <select onChange={(event) => this.handleOnChangeSelect(event)}>
-                        {allDays && allDays.length > 0 &&
-                            allDays.map((item, index) => {
-                                return (
-                                    <option value={item.value} key={index}> {item.label} </option>
-                                )
-                            })}
-                    </select>
-                </div>
-                <div className='all-avaiable-time'>
-                    <div className='text-calendar'>
-                        <i className="fas fa-calendar-alt"><span>Lịch khám</span></i>
+            <>
+                <div className='doctor-schedule-container'>
+                    <div className='all-schedule'>
+                        <select onChange={(event) => this.handleOnChangeSelect(event)}>
+                            {allDays && allDays.length > 0 &&
+                                allDays.map((item, index) => {
+                                    return (
+                                        <option value={item.value} key={index}> {item.label} </option>
+                                    )
+                                })}
+                        </select>
                     </div>
-                    <div className='time-content'>
+                    <div className='all-avaiable-time'>
+                        <div className='text-calendar'>
+                            <i className="fas fa-calendar-alt"><span>Lịch khám</span></i>
+                        </div>
+                        <div className='time-content'>
+                            {allAvaiableTime && allAvaiableTime.length > 0 ?
+                                <>
+                                    <div className='time-content-button'>
+                                        {allAvaiableTime.map((item, index) => {
+                                            let timeDisplay = item.timeTypeData.valueVi;
+                                            return (
+                                                <button key={index}
+                                                    onClick={() => this.handleClickScheduleTime(item)}
+                                                >{timeDisplay}</button>
+                                            )
+                                        })
+                                        }
+                                    </div>
+                                    <div className='book-free'>
+                                        <span>Chọn <i className="fas fa-hand-point-up"></i> và đặt (miễn phí)</span>
+                                    </div>
+                                </>
+                                : <div className='notification'>Không có lịch hẹn trong thời gian này, vui lòng chọn ngày khác!</div>
+                            }
 
-                        {allAvaiableTime && allAvaiableTime.length > 0 ?
-                            <>
-                                <div className='time-content-button'>
-                                    {allAvaiableTime.map((item, index) => {
-                                        let timeDisplay = item.timeTypeData.valueVi;
-                                        return (
-                                            <button key={index}>{timeDisplay}</button>
-                                        )
-                                    })
-                                    }
-                                </div>
-                                <div className='book-free'>
-                                    <span>Chọn <i className="fas fa-hand-point-up"></i> và đặt (miễn phí)</span>
-                                </div>
-                            </>
-
-
-                            : <div className='notification'>Không có lịch hẹn trong thời gian này, vui lòng chọn ngày khác!</div>
-                        }
-
+                        </div>
                     </div>
                 </div>
-            </div>
+                <BookingModal isOpenModal={isModalBooking}
+                    closeModalBooking={this.closeModalBooking}
+                    dataTime={dataModalSchedule}
+                />
+            </>
+
         );
     }
 }
