@@ -31,7 +31,6 @@ class DoctorDetail extends Component {
                 })
             }
         }
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
