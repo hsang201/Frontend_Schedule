@@ -36,12 +36,20 @@ class ManageSchedule extends Component {
             listPrice: [],
             listPayment: [],
             listProvince: [],
+            listClinic: [],
+            listSpecialty: [],
+
             selectedPrice: '',
             selectedPayment: '',
             selectedProvince: '',
+            selectedClinic: '',
+            selectedSpecialty: '',
+
             nameClinic: '',
             addressClinic: '',
             note: '',
+            clinicId: '',
+            specialtyId: '',
         }
     }
     componentDidMount() {
@@ -76,6 +84,14 @@ class ManageSchedule extends Component {
                     result.push(object)
                 })
             }
+            if (type === 'SPECIALTY') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    object.label = item.name;
+                    object.value = item.id;
+                    result.push(object)
+                })
+            }
         }
         return result;
     }
@@ -88,15 +104,17 @@ class ManageSchedule extends Component {
             })
         }
         if (prevProps.allRequiredDoctorInfor !== this.props.allRequiredDoctorInfor) {
-            let { resPrice, resPayment, resProvince } = this.props.allRequiredDoctorInfor;
+            let { resPrice, resPayment, resProvince, resSpecialty } = this.props.allRequiredDoctorInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
+            let dataSelectedSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
             console.log(dataSelectPayment, dataSelectPrice, dataSelectProvince);
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
+                listSpecialty: dataSelectedSpecialty
             })
         }
     }
@@ -123,6 +141,8 @@ class ManageSchedule extends Component {
             nameClinic: this.state.nameClinic,
             addressClinic: this.state.addressClinic,
             note: this.state.note,
+            clinicId: this.state.selectedClinic && this.state.selectedClinic.value ? this.state.selectedClinic.value : '',
+            specialtyId: this.state.selectedSpecialty.value
         })
         console.log(this.state.selectedDoctor);
     }
@@ -282,10 +302,31 @@ class ManageSchedule extends Component {
                         ></input>
                     </div>
                 </div>
-
+                <div className='row'>
+                    <div className='col-4 form-group'>
+                        <label>Chọn chuyên khoa</label>
+                        <Select
+                            Value={this.state.selectedSpecialty}
+                            onChange={this.handleOnChangeSelectDoctorInfor}
+                            options={this.state.listSpecialty}
+                            placeholder={'Chọn chuyên khoa'}
+                            name="selectedSpecialty"
+                        />
+                    </div>
+                    <div className='col-4 form-group'>
+                        <label>Chọn phòng khám</label>
+                        <Select
+                            Value={this.state.selectedClinic}
+                            onChange={this.handleOnChangeSelectDoctorInfor}
+                            options={this.state.listClinic}
+                            placeholder={'Chọn phòng khám'}
+                            name="selectedClinic"
+                        />
+                    </div>
+                </div>
 
                 <div className='manage-doctor-editor'>
-                    <MdEditor style={{ height: '500px' }}
+                    <MdEditor style={{ height: '300px' }}
                         renderHTML={text => mdParser.render(text)}
                         onChange={this.handleEditorChange}
                         value={this.state.contentMarkdown}
