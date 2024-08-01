@@ -58,7 +58,9 @@
         background-color: #eee;
 
         &.section-specialty {
-          background-image: url("../../assets/specialty/tu-van.jpg");
+          // background-image: url("../../assets/specialty/tu-van.jpg");
+          border-radius: 10px;
+          border: 2px solid rgb(231, 230, 230);
         }
         &.section-mediacl-facility {
           background-image: url("../../assets/medical-facility/benh-vien-huu-nghi-viet-duc-1.png");
@@ -72,6 +74,17 @@
           height: 120px;
           width: 120px;
           border-radius: 50%;
+        }
+      }
+
+      .specialty-name {
+        text-align: center;
+        font-size: 17px;
+        font-weight: 500;
+        padding: 10px 0;
+
+        &:hover {
+          color: #1d9fa7;
         }
       }
     }
