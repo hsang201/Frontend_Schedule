@@ -17,7 +17,7 @@ import DetailDoctor from "./Patient/Doctor/DetailDoctor.js";
 import Doctor from "../routes/Doctor.js";
 import VerifyBooking from "./Patient/VerifyBooking.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DetailSpecialty from "./Patient/Specialty/DetaiSpecialty.js"
+import DetailSpecialty from "./Patient/Specialty/DetailSpecialty.js"
 
 class App extends Component {
   handlePersistorState = () => {

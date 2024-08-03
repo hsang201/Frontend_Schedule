@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from "../../../store/actions";
 import "./ManageDoctor.scss";
-// import { FormattedMessage } from "react-intl";
-// import DatePicker from '../../../components/Input/DatePicker';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
@@ -12,12 +10,6 @@ import { getDetailInforDoctor } from '../../../services/userService';
 import { CRUD_Actions } from '../../../utils/constant';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
-
-const options = [
-    { value: 'chocolate', label: 'chocolate' },
-    { value: 'strawberry', label: 'strawberry' },
-    { value: 'vanilla', label: 'vanilla' }
-]
 
 class ManageSchedule extends Component {
 
@@ -39,17 +31,17 @@ class ManageSchedule extends Component {
             listClinic: [],
             listSpecialty: [],
 
-            selectedPrice: '',
-            selectedPayment: '',
-            selectedProvince: '',
-            selectedClinic: '',
-            selectedSpecialty: '',
+            selectedPrice: "",
+            selectedPayment: "",
+            selectedProvince: "",
+            selectedClinic: "",
+            selectedSpecialty: "",
 
-            nameClinic: '',
-            addressClinic: '',
-            note: '',
-            clinicId: '',
-            specialtyId: '',
+            nameClinic: "",
+            addressClinic: "",
+            note: "",
+            clinicId: "",
+            specialtyId: "",
         }
     }
     componentDidMount() {
@@ -109,7 +101,6 @@ class ManageSchedule extends Component {
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
             let dataSelectedSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
-            console.log(dataSelectPayment, dataSelectPrice, dataSelectProvince);
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
@@ -144,21 +135,21 @@ class ManageSchedule extends Component {
             clinicId: this.state.selectedClinic && this.state.selectedClinic.value ? this.state.selectedClinic.value : '',
             specialtyId: this.state.selectedSpecialty.value
         })
-        console.log(this.state.selectedDoctor);
     }
 
 
 
     handleChangeSelect = async (selectedDoctor) => {
         this.setState({ selectedDoctor });
+        let { listPayment, listPrice, listProvince, listSpecialty } = this.state;
+
         let res = await getDetailInforDoctor(selectedDoctor.value);
         if (res && res.infor.errCode === 0 && res.infor.data && res.infor.data.Markdown) {
             let markdown = res.infor.data.Markdown;
 
-            let { listPayment, listPrice, listProvince } = this.state;
             let addressClinic = '', nameClinic = '', note = '', priceId = '',
                 paymentId = '', provinceId = '', selectedPayment = '', selectedPrice = '',
-                selectedProvince = '';
+                selectedProvince = '', selectedSpecialty = '', specialtyId = '';
 
             if (res.infor.data.Doctorinfo) {
                 addressClinic = res.infor.data.Doctorinfo.addressClinic;
@@ -166,13 +157,14 @@ class ManageSchedule extends Component {
                 note = res.infor.data.Doctorinfo.note;
                 paymentId = res.infor.data.Doctorinfo.paymentId;
                 priceId = res.infor.data.Doctorinfo.priceId;
-                provinceId = res.infor.data.Doctorinfo.provinceId;
+                provinceId = res.infor.data.Doctorinfo.provinceId;;
+                specialtyId = res.infor.data.Doctorinfo.specialtyId
 
-                selectedPayment = listPayment.find(item => item.value === paymentId);
-                selectedPrice = listPrice.find(item => item.value === priceId);
-                selectedProvince = listProvince.find(item => item.value === provinceId);
+                selectedPayment = listPayment.find(item => { return item && item.value === paymentId });
+                selectedPrice = listPrice.find(item => { return item && item.value === priceId });
+                selectedProvince = listProvince.find(item => { return item && item.value === provinceId });
+                selectedSpecialty = listSpecialty.find(item => { return item && item.value === specialtyId });
 
-                console.log(selectedPayment, selectedPrice, selectedProvince);
 
             }
             this.setState({
@@ -183,9 +175,10 @@ class ManageSchedule extends Component {
                 addressClinic: addressClinic,
                 nameClinic: nameClinic,
                 note: note,
-                selectedPayment: selectedPayment.label,
-                selectedPrice: selectedPrice.label,
-                selectedProvince: selectedProvince.label
+                selectedPayment: selectedPayment,
+                selectedPrice: selectedPrice,
+                selectedProvince: selectedProvince,
+                selectedSpecialty: selectedSpecialty
             })
         } else {
             this.setState({
@@ -198,7 +191,8 @@ class ManageSchedule extends Component {
                 note: '',
                 selectedPayment: '',
                 selectedPrice: '',
-                selectedProvince: ''
+                selectedProvince: '',
+                selectedSpecialty: ''
             })
         }
     }
@@ -212,6 +206,7 @@ class ManageSchedule extends Component {
         })
     }
 
+
     handleOnChangeText = (event, id) => {
         let stateCopy = { ...this.state };
         stateCopy[id] = event.target.value;
@@ -222,7 +217,6 @@ class ManageSchedule extends Component {
 
     render() {
         let { hasOldData } = this.state;
-        console.log(this.state);
         return (
             <div className='manage-doctor-container'>
                 <div className='manage-doctor-title'>
@@ -251,6 +245,17 @@ class ManageSchedule extends Component {
                 <div className='info-extra row'>
                     <div className='col-4 form-group'>
                         <label>Chọn giá</label>
+                        {/* <select className='form-control'
+                            onChange={this.handleOnChangeSelectDoctorInfor}
+                            value={this.state.selectedPrice.value}
+                            name="selectedPrice"
+                        >
+                            {this.state.listPrice && this.state.listPrice.length > 0 &&
+                                this.state.listPrice.map((item, index) => {
+                                    return (<option key={index} value={item.value}>{item.label}</option>)
+                                })
+                            }
+                        </select> */}
                         <Select
                             Value={this.state.selectedPrice}
                             onChange={this.handleOnChangeSelectDoctorInfor}
@@ -262,6 +267,17 @@ class ManageSchedule extends Component {
                     </div>
                     <div className='col-4 form-group'>
                         <label>Chọn phương thức thanh toán</label>
+                        {/* <select className='form-control'
+                            onChange={this.handleOnChangeSelectDoctorInfor}
+                            value={this.state.selectedPayment.value}
+                            name="selectedPayment"
+                        >
+                            {this.state.listPayment && this.state.listPayment.length > 0 &&
+                                this.state.listPayment.map((item, index) => {
+                                    return (<option key={index} value={item.value}>{item.label}</option>)
+                                })
+                            }
+                        </select> */}
                         <Select
                             defaultValue={this.state.selectedPayment}
                             onChange={this.handleOnChangeSelectDoctorInfor}
@@ -272,6 +288,17 @@ class ManageSchedule extends Component {
                     </div>
                     <div className='col-4 form-group'>
                         <label>Chọn tỉnh thành</label>
+                        {/* <select className='form-control'
+                            onChange={this.handleOnChangeSelectDoctorInfor}
+                            value={this.state.selectedProvince.value}
+                            name="selectedProvince"
+                        >
+                            {this.state.listProvince && this.state.listProvince.length > 0 &&
+                                this.state.listProvince.map((item, index) => {
+                                    return (<option key={index} value={item.value}>{item.label}</option>)
+                                })
+                            }
+                        </select> */}
                         <Select
                             Value={this.state.selectedProvince}
                             onChange={this.handleOnChangeSelectDoctorInfor}
@@ -305,6 +332,17 @@ class ManageSchedule extends Component {
                 <div className='row'>
                     <div className='col-4 form-group'>
                         <label>Chọn chuyên khoa</label>
+                        {/* <select className='form-control'
+                            onChange={this.handleOnChangeSelectDoctorInfor}
+                            value={this.state.selectedSpecialty}
+                            name="selectedSpecialty"
+                        >
+                            {this.state.listSpecialty && this.state.listSpecialty.length > 0 &&
+                                this.state.listSpecialty.map((item, index) => {
+                                    return (<option key={index} value={item.value}>{item.label}</option>)
+                                })
+                            }
+                        </select> */}
                         <Select
                             Value={this.state.selectedSpecialty}
                             onChange={this.handleOnChangeSelectDoctorInfor}

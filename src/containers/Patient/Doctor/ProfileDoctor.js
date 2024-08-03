@@ -4,6 +4,7 @@ import './ProfileDoctor.scss';
 import { getProfileDoctor } from '../../../services/userService';
 import _ from 'lodash';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 
 class ProfileDoctor extends Component {
@@ -55,7 +56,7 @@ class ProfileDoctor extends Component {
 
     render() {
         let { dataProfile } = this.state
-        let { isShowDescriptionDoctor, dataTime } = this.props;
+        let { isShowDescriptionDoctor, dataTime, isShowLinkDetail, doctorId } = this.props;
         console.log('check state', this.state);
         let nameVi = '';
         if (dataProfile && dataProfile.positionData) {
@@ -69,6 +70,8 @@ class ProfileDoctor extends Component {
                     >
 
                     </div>
+
+
                     <div className='content-right'>
                         <div className='up'>
                             {nameVi}
@@ -88,8 +91,15 @@ class ProfileDoctor extends Component {
                                 </>
                             }
                         </div>
+
                     </div>
                 </div>
+                {isShowLinkDetail === true && (
+                    <div className='view-more'>
+                        <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
+                        {/* <a href={`/detail-doctor/${doctorId}`}>Xem thêm</a> */}
+                    </div>
+                )}
                 {/* <div className='schedule-doctor'>
                     <div className='content-left'>
                         <DoctorSchedule

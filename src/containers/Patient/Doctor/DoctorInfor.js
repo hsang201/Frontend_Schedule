@@ -19,7 +19,14 @@ class DoctorInfor extends Component {
     }
 
     async componentDidMount() {
-
+        if (this.props.doctorIdFromParent) {
+            let res = await getInforDoctor(this.props.doctorIdFromParent)
+            if (res && res.errCode === 0) {
+                this.setState({
+                    extraInfor: res.data
+                })
+            }
+        }
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -39,12 +46,14 @@ class DoctorInfor extends Component {
         return (
             <div className='doctor-infor-container'>
                 <div className='content-up'>
-                    <div className='text-address'> Địa chỉ khám</div>
+                    <div className='text-address'>Địa chỉ khám</div>
                     <div className='name-clinic'>
-                        {extraInfor && extraInfor.nameClinic ? extraInfor.nameClinic : ''}
+                        {/* {extraInfor && extraInfor.nameClinic ? extraInfor.nameClinic : ''} */}
+                        {extraInfor.nameClinic}
                     </div>
                     <div className='detail-address'>
-                        {extraInfor && extraInfor.addressClinic ? extraInfor.addressClinic : ''}
+                        {/* {extraInfor && extraInfor.addressClinic ? extraInfor.addressClinic : ''} */}
+                        {extraInfor.addressClinic}
                     </div>
                 </div>
                 <div className='content-down'>
