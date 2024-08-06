@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './ManagePatient.scss';
 import DatePicker from '../../../components/Input/DatePicker';
-import { getAllPatientDoctor } from '../../../services/userService';
-// import { FormattedDate } from 'react-intl';
+import { getAllPatientDoctor, updatePatientStatus } from '../../../services/userService';
 import moment from 'moment';
-
 
 class ManagePatient extends Component {
     constructor(props) {
@@ -20,18 +18,22 @@ class ManagePatient extends Component {
         let { user } = this.props;
         let { currentDate } = this.state;
         let formatedDate = new Date(currentDate).getTime();
-        this.getDataPatient(user, formatedDate)
+        this.getDataPatient(user, formatedDate);
     }
 
     getDataPatient = async (user, formatedDate) => {
         let res = await getAllPatientDoctor({
             doctorId: user.id,
             date: formatedDate
-        })
+        });
         if (res && res.errCode === 0) {
+            let dataPatient = res.data.map(patient => ({
+                ...patient,
+                confirmed: patient.statusId === 'S3'
+            }));
             this.setState({
-                dataPatient: res.data
-            })
+                dataPatient
+            });
         }
     }
 
@@ -44,21 +46,39 @@ class ManagePatient extends Component {
             let { user } = this.props;
             let { currentDate } = this.state;
             let formatedDate = new Date(currentDate).getTime();
-            this.getDataPatient(user, formatedDate)
-        })
+            this.getDataPatient(user, formatedDate);
+        });
     }
 
-    handleBtnConfirm = (item) => {
-        let data = {
-            doctorId: item.doctorId,
+    handleBtnConfirm = async (item) => {
+        let res = await updatePatientStatus({
             patientId: item.patientId,
-            email: item.patientData.email
+            doctorId: item.doctorId
+        });
+        if (res && res.errCode === 0) {
+            let dataPatient = this.state.dataPatient.map(patient => {
+                if (patient.patientId === item.patientId && patient.doctorId === item.doctorId) {
+                    return {
+                        ...patient,
+                        statusId: 'S3',
+                        confirmed: true
+                    };
+                }
+                return patient;
+            });
+
+            this.setState({
+                dataPatient
+            });
+        } else {
+            // Handle error case
+            console.error(res.errMessage);
         }
-        console.log('check', data);
     }
 
     render() {
         let { dataPatient } = this.state;
+        console.log(this.state);
         return (
             <div className='manage-patient-container'>
                 <div className='m-p-title'>
@@ -82,7 +102,7 @@ class ManagePatient extends Component {
                                         <th>Thời gian</th>
                                         <th>Họ Tên</th>
                                         <th>Giới tính</th>
-                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ</th>
                                         <th>Trạng thái</th>
                                     </tr>
                                     {dataPatient && dataPatient.length > 0 ?
@@ -95,14 +115,20 @@ class ManagePatient extends Component {
                                                     <td>{item.patientData.genderData.valueVi}</td>
                                                     <td>{item.patientData.address}</td>
                                                     <td>
-                                                        <button className='mp-btn-confirm' onClick={() => this.handleBtnConfirm(item)}>Xác nhận</button>
+                                                        <button
+                                                            className={`mp-btn-confirm ${item.confirmed ? 'confirmed' : ''}`}
+                                                            onClick={() => this.handleBtnConfirm(item)}
+                                                            disabled={item.confirmed}
+                                                        >
+                                                            {item.confirmed ? 'Đã xác nhận' : 'Xác nhận'}
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             )
                                         })
                                         :
                                         <tr>
-                                            Không có dữ liệu
+                                            <td colSpan="6">Không có dữ liệu</td>
                                         </tr>
                                     }
                                 </tbody>

@@ -85,6 +85,9 @@ const getDetailSpecialty = (data) => {
 const getAllPatientDoctor = (data) => {
   return axios.get(`/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`);
 }
+const updatePatientStatus = (data) => {
+  return axios.put(`/api/update-status?patientId=${data.patientId}&doctorId=${data.doctorId}`);
+};
 
 export {
   handleLoginApi, getAllUsers,
@@ -95,5 +98,6 @@ export {
   saveBulkScheduleDoctor, getScheduleDoctor,
   getInforDoctor, getProfileDoctor, postPatientBooking,
   postVerifyBookAppointment, createNewSpecialty,
-  getAllSpecialty, getDetailSpecialty, getAllPatientDoctor
+  getAllSpecialty, getDetailSpecialty, getAllPatientDoctor,
+  updatePatientStatus
 };
