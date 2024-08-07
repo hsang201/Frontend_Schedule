@@ -1,5 +1,5 @@
 .home-header-banner {
-  background-image: url("../../assets/banner2.jpg");
+  background-image: url("../../assets/banner.jpg");
   height: 600px;
   background-size: cover;
   background-position: center;
@@ -18,8 +18,8 @@
     .title1 {
       text-align: center;
       color: white;
-      font-size: 30px;
-      text-shadow: 1px 1px 1px #333;
+      font-size: 35px;
+      text-shadow: 2px 2px 2px #333;
       margin-bottom: 15px;
       margin-top: 30px;
     }
@@ -27,33 +27,10 @@
     .title2 {
       text-align: center;
       color: white;
-      font-size: 30px;
-      text-shadow: 1px 1px 1px #333;
-      font-weight: bolder;
+      font-size: 35px;
+      text-shadow: 2px 2px 2px #333;
+      font-weight: 700;
       margin-bottom: 20px;
-    }
-
-    .search {
-      width: fit-content;
-      display: flex;
-      margin: 0 auto;
-      justify-content: center;
-      align-items: center;
-      padding: 15px;
-      background-color: rgba(246, 245, 241, 0.8);
-      border-radius: 30px;
-
-      i {
-        margin: 0 5px;
-      }
-
-      input {
-        height: 30px;
-        width: 350px;
-        background: transparent;
-        border: none;
-        outline: none;
-      }
     }
   }
 
@@ -68,48 +45,5 @@
       rgba(255, 255, 255, 1)
     );
     padding-bottom: 15px;
-
-    .options {
-      display: flex;
-      text-align: center;
-      justify-content: center;
-      gap: 40px;
-
-      // justify-content: space-evenly;
-
-      .option-child {
-        width: 100px;
-
-        .icon-child {
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          border-radius: 50%;
-          height: 50px;
-          width: 50px;
-          padding: 10px;
-          background-color: white;
-          margin: 0 auto;
-
-          i {
-            font-size: 25px;
-            color: #1d9fa7;
-          }
-        }
-        .text-child {
-          // padding: 0;
-          font-weight: 500;
-          font-size: 16px;
-          color: #012d2f;
-          cursor: pointer;
-          text-shadow: 1px #333;
-          margin-top: 5px;
-
-          &:hover {
-            color: aqua;
-          }
-        }
-      }
-    }
   }
 }

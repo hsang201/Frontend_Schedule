@@ -16,53 +16,9 @@ class HomeBanner extends Component {
                     <div className="content-up">
                         <div className="title1"><FormattedMessage id="homebanner.title1" /></div>
                         <div className="title2"><FormattedMessage id="homebanner.title2" /></div>
-                        <div className="search">
-                            <i className="fas fa-search"></i>
-                            <input type="text" placeholder="Tìm chuyên khoa khám bệnh.."></input>
-                        </div>
+
                     </div>
-                    <div className="content-down">
-                        <div className="options">
-                            <div className="option-child">
-                                <div className="icon-child"><i className="fas fa-hospital-alt"></i></div>
-                                <div className="text-child">
-                                    <FormattedMessage id="homebanner.child1" />
-                                </div>
-                            </div>
-                            <div className="option-child">
-                                <div className="icon-child">
-                                    <i className="fas fa-procedures"></i>
-                                </div>
-                                <div className="text-child">
-                                    <FormattedMessage id="homebanner.child2" />
-                                </div>
-                            </div>
-                            <div className="option-child">
-                                <div className="icon-child">
-                                    <i className="fas fa-flask"></i>
-                                </div>
-                                <div className="text-child">
-                                    <FormattedMessage id="homebanner.child3" />
-                                </div>
-                            </div>
-                            <div className="option-child">
-                                <div className="icon-child">
-                                    <i className="fas fa-user-md"></i>
-                                </div>
-                                <div className="text-child">
-                                    <FormattedMessage id="homebanner.child4" />
-                                </div>
-                            </div>
-                            <div className="option-child">
-                                <div className="icon-child">
-                                    <i className="fas fa-user-md"></i>
-                                </div>
-                                <div className="text-child">
-                                    <FormattedMessage id="homebanner.child5" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div className='content-down'></div>
                 </div>
             </React.Fragment>
         );

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../utils/constant";
 import { withRouter } from 'react-router';
@@ -15,11 +15,7 @@ class HomeHeader extends Component {
     this.props.changelanguageAppRedux(language);
   };
 
-  // returnToHome = () => {
-  //   if (this.props.history) {
-  //     this.props.history.push('/home')
-  //   }
-  // }
+
   returnToHome = () => {
     window.location.href = '/home'; // Navigate to the home page
   };
@@ -36,40 +32,13 @@ class HomeHeader extends Component {
             </div>
             <div className="center-content">
               <div className="child-content">
-                <div>
-                  <b>
-                    {" "}
-                    <FormattedMessage id="homeheader.specialty" />{" "}
-                  </b>
-                </div>
-                <div className="subs-title">
-                  {" "}
-                  <FormattedMessage id="homeheader.searchdoctor" />
-                </div>
+                <b>Chuyên Khoa</b>
               </div>
               <div className="child-content">
-                <div>
-                  <b>{" "}<FormattedMessage id="homeheader.health-facility" />{" "}</b>
-                </div>
-                <div className="subs-title">
-                  {" "}<FormattedMessage id="homeheader.select-room" />{" "}
-                </div>
+                <b>Bác Sĩ</b>
               </div>
               <div className="child-content">
-                <div>
-                  <b><FormattedMessage id="homeheader.doctor" /></b>
-                </div>
-                <div className="subs-title">
-                  <FormattedMessage id="homeheader.select-doctor" />
-                </div>
-              </div>
-              <div className="child-content">
-                <div>
-                  <b><FormattedMessage id="homeheader.medical-package" /></b>
-                </div>
-                <div className="subs-title">
-                  <FormattedMessage id="homeheader.general-check" />
-                </div>
+                <b>Phòng Khám</b>
               </div>
             </div>
             <div className="right-content">
@@ -77,12 +46,12 @@ class HomeHeader extends Component {
                 <i className="fas fa-question-circle"></i>{" "}
                 <FormattedMessage id="homeheader.support" />
               </div>
-              <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}>
+              {/* <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}>
                 <span onClick={() => this.changelanguage(LANGUAGES.VI)}>VN</span>
               </div>
               <div className={language === LANGUAGES.EN ? "language-en active" : "language-en"}>
                 <span onClick={() => this.changelanguage(LANGUAGES.EN)}>EN</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
