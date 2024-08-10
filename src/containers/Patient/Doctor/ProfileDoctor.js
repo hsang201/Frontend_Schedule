@@ -68,10 +68,7 @@ class ProfileDoctor extends Component {
                     <div className='content-left'
                         style={{ backgroundImage: `url(${dataProfile && dataProfile.image ? dataProfile.image : ''})` }}
                     >
-
                     </div>
-
-
                     <div className='content-right'>
                         <div className='up'>
                             {nameVi}

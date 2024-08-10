@@ -12,7 +12,7 @@ class DetailSpecialty extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrDoctorId: [13, 14, 15],
+            arrDoctorId: [],
             dataDetail: {},
             listProvince: [],
             showFullDescription: false, // Thêm state để quản lý hiển thị mô tả
